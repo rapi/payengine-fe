@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { SignUp } from "./components/SignUp/SignUp";
 import { SignIn } from "./components/SignIn/SignIn";
 import { Dashboard } from "./components/Dashboard/Dashboard";
-
+import "./index.css";
 const router = createBrowserRouter([
   {
     path: "/signup",
