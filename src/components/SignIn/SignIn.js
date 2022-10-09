@@ -7,22 +7,25 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { signup } from "../../api/user";
-import { Alert } from "@mui/material";
-import { useState } from "react";
+import { login } from "../../api/user";
 import { setToken } from "../../utils/localStorage";
+import { useState } from "react";
+import { Alert } from "@mui/material";
 
-export const SignUp = () => {
+export const SignIn = () => {
   const [error, setError] = useState();
   const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
-    setError(false);
+    const payload = new FormData(event.currentTarget);
+
+    setError("");
     event.preventDefault();
-    const payload = Object.fromEntries(
-      new FormData(event.currentTarget).entries()
-    );
     try {
-      const { data } = await signup(payload);
+      const { data } = await login({
+        email: payload.get("email"),
+        password: payload.get("password"),
+      });
       setToken(data.token);
       navigate("/dashboard");
     } catch (e) {
@@ -42,31 +45,10 @@ export const SignUp = () => {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign In
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="given-name"
-                name="first_name"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="last_name"
-                autoComplete="family-name"
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 required
@@ -74,7 +56,6 @@ export const SignUp = () => {
                 id="email"
                 label="Email Address"
                 name="email"
-                type="email"
                 autoComplete="email"
               />
             </Grid>
@@ -95,15 +76,13 @@ export const SignUp = () => {
               {error}
             </Alert>
           )}
-
           <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
-            Sign Up
+            Sign In
           </Button>
-
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="/login" variant="body2">
-                Already have an account? Sign in
+              <Link to="/signup" variant="body2">
+                Already have an account? Sign Up
               </Link>
             </Grid>
           </Grid>
