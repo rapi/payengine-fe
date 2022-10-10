@@ -48,7 +48,7 @@ export const Transfer = () => {
           sx={{ width: "70%" }}
         />
         <FormControl sx={{ ml: 1, width: "27%" }}>
-          <InputLabel id="currency-select-label">Age</InputLabel>
+          <InputLabel id="currency-select-label">Currency</InputLabel>
           <Select
             value={currency}
             label="Currency"
@@ -67,7 +67,7 @@ export const Transfer = () => {
           sx={{ my: 1 }}
           onClick={submit}
         >
-          Transfer
+          SUBMIT
         </Button>
       </Box>
     </Box>
