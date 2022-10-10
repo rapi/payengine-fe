@@ -2,7 +2,7 @@ import { PropTypes } from "prop-types";
 import { useEffect } from "react";
 import { loadPayengine } from "payengine";
 
-const Onboarding = ({ merchantId, hash, publicKey }) => {
+const TransactionList = ({ merchantId, hash, publicKey }) => {
   useEffect(() => {
     if (publicKey)
       loadPayengine({
@@ -11,15 +11,17 @@ const Onboarding = ({ merchantId, hash, publicKey }) => {
   }, [publicKey]);
   return (
     <pay-engine
-      type="boarding"
+      id="pf-transactions"
+      type="transactions"
       merchant-id={merchantId}
+      default-filter="{}"
       hash={hash}
     ></pay-engine>
   );
 };
-Onboarding.propTypes = {
+TransactionList.propTypes = {
   merchantId: PropTypes.string.isRequired,
   hash: PropTypes.string.isRequired,
   publicKey: PropTypes.string.isRequired,
 };
-export { Onboarding };
+export { TransactionList };

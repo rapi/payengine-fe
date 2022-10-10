@@ -7,20 +7,29 @@ import IconButton from "@mui/material/IconButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { PropTypes } from "prop-types";
 import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setToken } from "../../utils/localStorage";
 import { Tab, Tabs } from "@mui/material";
 
 const Header = ({ firstName, lastName, status }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const logout = useCallback(() => {
     setToken("");
     navigate("/login");
   });
-  const OnBoardingTabs = (
-    <Tabs value={1} aria-label="basic tabs example">
-      <Tab label="Pay" />
-      <Tab label="Transaction List" />
+  const TransactionTabs = (
+    <Tabs value={location.pathname} aria-label="basic tabs example">
+      <Tab
+        label="Pay"
+        value="/dashboard"
+        onClick={() => navigate("/dashboard")}
+      />
+      <Tab
+        label="Transaction List"
+        value="/dashboard/transaction-list"
+        onClick={() => navigate("/dashboard/transaction-list")}
+      />
     </Tabs>
   );
   return (
@@ -42,7 +51,7 @@ const Header = ({ firstName, lastName, status }) => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {status !== "active" && OnBoardingTabs}
+      {status === "active" && TransactionTabs}
     </Box>
   );
 };

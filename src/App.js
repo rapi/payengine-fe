@@ -7,13 +7,10 @@ import { SignUp } from "./components/SignUp/SignUp";
 export const App = () => {
   return (
     <Routes>
-      {/*<Route element={<Layout />}>*/}
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/*" element={<Dashboard />} />
       <Route path="/login" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/*" element={<Navigate to="/dashboard" replace />} />
-
-      {/*</Route>*/}
     </Routes>
   );
 };
