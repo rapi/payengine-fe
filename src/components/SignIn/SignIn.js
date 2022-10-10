@@ -18,8 +18,6 @@ export const SignIn = () => {
 
   const handleSubmit = async (event) => {
     const payload = new FormData(event.currentTarget);
-
-    setError("");
     event.preventDefault();
     try {
       const { data } = await login({

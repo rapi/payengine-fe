@@ -1,23 +1,19 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { SignIn } from "./components/SignIn/SignIn";
+import { Dashboard } from "./components/Dashboard/Dashboard";
+import { SignUp } from "./components/SignUp/SignUp";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <div>
-        <h1>Hello World</h1>
-        <Link to="about">About Us</Link>
-      </div>
-    ),
-  },
-  {
-    path: "about",
-    element: <div>About</div>,
-  },
-]);
+export const App = () => {
+  return (
+    <Routes>
+      {/*<Route element={<Layout />}>*/}
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/login" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/*" element={<Navigate to="/dashboard" replace />} />
 
-createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
-);
+      {/*</Route>*/}
+    </Routes>
+  );
+};
